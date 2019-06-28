@@ -15,4 +15,7 @@ include_recipe 'datadog::dd-agent'
 
 datadog_monitor 'tcp_check' do
   instances node['datadog']['tcp_check']['instances']
+  logs node['datadog']['tcp_check']['logs']
+  action :add
+  notifies :restart, 'service[datadog-agent]' if node['datadog']['agent_start']
 end

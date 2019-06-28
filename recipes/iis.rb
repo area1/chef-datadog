@@ -8,7 +8,8 @@ include_recipe 'datadog::dd-agent'
 # node.datadog.iis.instances = [
 #                               {
 #                                 "host" => "localhost",
-#                                 "tags" => ["prod", "other_tag"]
+#                                 "tags" => ["prod", "other_tag"],
+#                                 "sites" => ["Default Web Site"]
 #                               },
 #                               {
 #                                 "host" => "other.server.com",
@@ -20,4 +21,7 @@ include_recipe 'datadog::dd-agent'
 
 datadog_monitor 'iis' do
   instances node['datadog']['iis']['instances']
+  logs node['datadog']['iis']['logs']
+  action :add
+  notifies :restart, 'service[datadog-agent]' if node['datadog']['agent_start']
 end

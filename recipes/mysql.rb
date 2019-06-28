@@ -17,10 +17,21 @@ include_recipe 'datadog::dd-agent'
 #     'options' => [
 #       "replication: 0",
 #       "galera_cluster: 1"
+#     ],
+#     'queries' => [
+#       {
+#         'type' => 'gauge',
+#         'field' => 'users_count'
+#         'metric' => 'my_app.my_users.count',
+#         'query' => 'SELECT COUNT(1) AS users_count FROM users'
+#       },
 #     ]
 #   },
 # ]
 
 datadog_monitor 'mysql' do
   instances node['datadog']['mysql']['instances']
+  logs node['datadog']['mysql']['logs']
+  action :add
+  notifies :restart, 'service[datadog-agent]' if node['datadog']['agent_start']
 end

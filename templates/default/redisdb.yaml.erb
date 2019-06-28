@@ -1,3 +1,5 @@
+<%= JSON.parse(({'logs' => @logs }).to_json).to_yaml %>
+
 instances:
 <% @instances.each do |i| -%>
   <% if i.key?("unix_socket_path") -%>
@@ -19,8 +21,8 @@ instances:
       <% end -%>
     <% end -%>
     <% if i.key?("keys") -%>
-        <% if i.key?("warn_on_missing_keys") and i["warn_on_missing_keys"]-%>
-    warn_on_missing_keys: True
+        <% if i.key?("warn_on_missing_keys") -%>
+    warn_on_missing_keys: <%= i['warn_on_missing_keys'] %>
         <% end -%>
     keys:
       <% i["keys"].each do |k| -%>
@@ -29,6 +31,7 @@ instances:
     <% end -%>
     <% if i.key?('slowlog-max-len') -%>slowlog-max-len: <%= i['slowlog-max-len'] %><% end -%>
     <% if i.key?('socket_timeout') -%>socket_timeout: <%= i['socket_timeout'] %><% end -%>
+    <% if i.key?('command_stats') -%>command_stats: <%= i['command_stats'] %><% end -%>
 <% end -%>
 
 init_config:

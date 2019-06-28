@@ -1,4 +1,5 @@
 # Encoding: utf-8
+
 require 'spec_helper'
 
 PROCESS_CONFIG = File.join(@agent_config_dir, 'conf.d/process.yaml')
@@ -23,6 +24,7 @@ describe file(PROCESS_CONFIG) do
           'search_string' => ['somepid', 'pidname']
         }
       ],
+      'logs' => nil,
       'init_config' => nil
     }
 

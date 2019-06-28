@@ -1,5 +1,6 @@
 describe 'datadog::solr' do
   expected_yaml = <<-EOF
+  logs: ~
   instances:
     - host: localhost
       port: 9999
@@ -82,7 +83,7 @@ describe 'datadog::solr' do
     ChefSpec::SoloRunner.new(step_into: ['datadog_monitor']) do |node|
       node.automatic['languages'] = { 'python' => { 'version' => '2.7.2' } }
 
-      node.set['datadog'] = {
+      node.normal['datadog'] = {
         'api_key' => 'someapikey',
         'solr' => {
           'instances' => [
@@ -110,8 +111,8 @@ describe 'datadog::solr' do
   it { is_expected.to add_datadog_monitor('solr') }
 
   it 'renders expected YAML config file' do
-    expect(chef_run).to render_file('/etc/dd-agent/conf.d/solr.yaml').with_content { |content|
-      expect(YAML.load(content).to_json).to be_json_eql(YAML.load(expected_yaml).to_json)
-    }
+    expect(chef_run).to(render_file('/etc/datadog-agent/conf.d/solr.yaml').with_content { |content|
+      expect(YAML.safe_load(content).to_json).to be_json_eql(YAML.safe_load(expected_yaml).to_json)
+    })
   end
 end

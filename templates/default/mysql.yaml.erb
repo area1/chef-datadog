@@ -1,3 +1,5 @@
+<%= JSON.parse(({'logs' => @logs }).to_json).to_yaml %>
+
 instances:
 <% @instances.each do |i| -%>
   - server: <%= i['server'] %>
@@ -9,6 +11,9 @@ instances:
     <% if i.key?('sock') -%>
     sock: <%= i['sock'] %>
     <% end -%>
+    <% if i.key?('min_collection_interval') -%>
+    min_collection_interval: <%= i['min_collection_interval'] %>
+    <% end -%>
   <% if i.key?('tags') -%>
     tags:
     <% i['tags'].each do |t| -%>
@@ -19,6 +24,15 @@ instances:
     options:
     <% i['options'].each do |o| -%>
       <%= o %>
+    <% end -%>
+  <% end -%>
+  <% if i.key?('queries') -%>
+    queries:
+    <% i['queries'].each do |q| -%>
+      - type: <%= q['type'] %>
+        field: <%= q['field'] %>
+        metric: <%= q['metric'] %>
+        query: <%= q['query'] %>
     <% end -%>
   <% end -%>
 <% end -%>

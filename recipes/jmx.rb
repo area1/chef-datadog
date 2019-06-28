@@ -10,7 +10,7 @@ include_recipe 'datadog::dd-agent'
 #       'name' 'prod_jmx_app',
 #       'conf' => [
 #         'include' => {
-#           'attributes' => ['Capacity', 'Used'],
+#           'attribute' => ['Capacity', 'Used'],
 #           'bean_name' => 'com.datadoghq.test:type=BeanType,tag1=my_bean_name',
 #           'domain' => 'com.datadoghq.test'
 #         }
@@ -19,4 +19,7 @@ include_recipe 'datadog::dd-agent'
 #   ]
 datadog_monitor 'jmx' do
   instances node['datadog']['jmx']['instances']
+  logs node['datadog']['jmx']['logs']
+  action :add
+  notifies :restart, 'service[datadog-agent]' if node['datadog']['agent_start']
 end

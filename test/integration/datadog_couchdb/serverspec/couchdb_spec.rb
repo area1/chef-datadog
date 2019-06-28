@@ -1,4 +1,5 @@
 # Encoding: utf-8
+
 require 'spec_helper'
 
 AGENT_CONFIG = File.join(@agent_config_dir, 'conf.d/couch.yaml')
@@ -21,6 +22,7 @@ describe file(AGENT_CONFIG) do
           user: 'someuser'
         }
       ],
+      'logs' => nil,
       'init_config' => nil
     }
 

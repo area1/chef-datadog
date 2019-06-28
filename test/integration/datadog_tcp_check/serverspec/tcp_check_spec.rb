@@ -1,4 +1,5 @@
 # Encoding: utf-8
+
 require 'spec_helper'
 
 AGENT_CONFIG = File.join(@agent_config_dir, 'conf.d/tcp_check.yaml')
@@ -26,6 +27,7 @@ describe file(AGENT_CONFIG) do
           'port' => 5678
         }
       ],
+      'logs' => nil,
       'init_config' => nil
     }
 

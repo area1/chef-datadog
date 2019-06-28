@@ -1,4 +1,5 @@
 # Encoding: utf-8
+
 require 'spec_helper'
 
 AGENT_CONFIG = File.join(@agent_config_dir, 'conf.d/cassandra.yaml')
@@ -20,15 +21,17 @@ describe file(AGENT_CONFIG) do
           port: 7199,
           user: 'someuser',
           password: 'somepass',
-          process_name_regex: '.*cassandra.*'
+          process_name_regex: '.*cassandra.*',
+          cassandra_aliasing: true
         }
       ],
+      'logs' => nil,
       'init_config' => {
         conf: [
           {
             include: {
               domain: 'org.apache.cassandra.db',
-              attribute: %w(
+              attribute: %w[
                 BloomFilterDiskSpaceUsed
                 BloomFilterFalsePositives
                 BloomFilterFalseRatio
@@ -61,7 +64,7 @@ describe file(AGENT_CONFIG) do
                 TotalWriteLatencyMicros
                 UpdateInterval
                 WriteCount
-              )
+              ]
             },
             exclude: {
               keyspace: 'system'

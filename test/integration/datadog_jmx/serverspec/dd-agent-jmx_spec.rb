@@ -1,4 +1,5 @@
 # Encoding: utf-8
+
 require 'spec_helper'
 
 JMX_CONFIG = File.join(@agent_config_dir, 'conf.d/jmx.yaml')
@@ -14,6 +15,7 @@ describe file(JMX_CONFIG) do
     generated = YAML.load_file(JMX_CONFIG)
 
     EXPECTED = {
+      'logs' => nil,
       'init_config' => nil,
       'instances' => [
         {
@@ -24,7 +26,7 @@ describe file(JMX_CONFIG) do
                 'bean' => ['my_bean', 'my_second_bean'],
                 'attribute' => {
                   'attribute1' => { 'metric_type' => 'counter', 'alias' => 'jmx.my_metric_name' },
-                  'attribute2' =>  { 'metric_type' => 'gauge', 'alias' => 'jmx.my2ndattribute' }
+                  'attribute2' => { 'metric_type' => 'gauge', 'alias' => 'jmx.my2ndattribute' }
                 }
               }
             },
@@ -48,7 +50,7 @@ describe file(JMX_CONFIG) do
           'user' => 'someuser'
         }
       ]
-    }
+    }.freeze
 
     expect(generated.to_json).to be_json_eql EXPECTED.to_json
   end

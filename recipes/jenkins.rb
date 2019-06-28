@@ -20,4 +20,7 @@ include_recipe 'datadog::dd-agent'
 
 datadog_monitor 'jenkins' do
   instances node['datadog']['jenkins']['instances']
+  logs node['datadog']['jenkins']['logs']
+  action :add
+  notifies :restart, 'service[datadog-agent]' if node['datadog']['agent_start']
 end

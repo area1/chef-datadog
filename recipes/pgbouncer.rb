@@ -19,7 +19,7 @@
 include_recipe 'datadog::dd-agent'
 
 # Build a data structure with configuration.
-# @see https://github.com/DataDog/dd-agent/blob/master/conf.d/pgbouncer.yaml.example Pgbouncer Example
+# @see https://github.com/DataDog/integrations-core/blob/master/pgbouncer/conf.yaml.example Pgbouncer Example
 # @example
 #   node.override['datadog']['pgbouncer']['instances'] = [
 #     {
@@ -36,4 +36,7 @@ include_recipe 'datadog::dd-agent'
 
 datadog_monitor 'pgbouncer' do
   instances node['datadog']['pgbouncer']['instances']
+  logs node['datadog']['pgbouncer']['logs']
+  action :add
+  notifies :restart, 'service[datadog-agent]' if node['datadog']['agent_start']
 end

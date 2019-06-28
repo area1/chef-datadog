@@ -12,4 +12,7 @@ include_recipe 'datadog::dd-agent'
 
 datadog_monitor 'fluentd' do
   instances node['datadog']['fluentd']['instances']
+  logs node['datadog']['fluentd']['logs']
+  action :add
+  notifies :restart, 'service[datadog-agent]' if node['datadog']['agent_start']
 end

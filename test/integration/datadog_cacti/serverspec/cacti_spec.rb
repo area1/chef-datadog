@@ -1,4 +1,5 @@
 # Encoding: utf-8
+
 require 'spec_helper'
 
 AGENT_CONFIG = File.join(@agent_config_dir, 'conf.d/cacti.yaml')
@@ -24,6 +25,7 @@ describe file(AGENT_CONFIG) do
           rrd_whitelist: '/path/to/rrd_whitelist.txt'
         }
       ],
+      'logs' => nil,
       'init_config' => nil
     }
 
