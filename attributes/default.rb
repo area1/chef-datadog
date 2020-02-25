@@ -71,6 +71,10 @@ default['datadog']['agent6_config_dir'] =
 # Defaults to 'datadoghq.com', set to 'datadoghq.eu' to send data to the EU site.
 default['datadog']['site'] = nil
 
+# The port for the go_expvar server.
+# expvar_port: 5000
+default['datadog']['expvar_port'] = nil
+
 # The port on which the IPC api listens
 # cmd_port: 5001
 default['datadog']['agent6_cmd_port'] = nil
