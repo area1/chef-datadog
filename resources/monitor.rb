@@ -1,5 +1,7 @@
 # Configure a service via its yaml file
 
+require 'yaml' # Our erb templates need this
+
 default_action :add
 
 property :name, String, name_attribute: true
