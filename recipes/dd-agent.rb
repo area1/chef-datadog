@@ -17,6 +17,8 @@
 # limitations under the License.
 #
 
+require 'yaml' # Our erb templates need this
+
 # Fail here at converge time if no api_key is set
 ruby_block 'datadog-api-key-unset' do
   block do
